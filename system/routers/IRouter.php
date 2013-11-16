@@ -1,8 +1,7 @@
 <?php
 namespace system\routers;
 
-interface IRouter {
+interface IRouter{
 	
 	public function getURL();
-	
 }

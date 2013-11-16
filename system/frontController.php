@@ -6,37 +6,35 @@ class FrontController {
 	public $router = null;
 	
 	public $controller 	= null;
-	public $method	 	= null;
+	public $method 		= null;
 	
 	public function __construct() {
 		$this->router = new routers\BaseRouter();
 	}
 	
-	
-	public function dispach() {
-		$url = $this->router->getURL();
-		$newURL =  explode('/', $url);
+	public function dispatch() 
+        {
+		$uri  = $this->router->getURL();
+		$newUri = explode('/', $uri);
 		
-		if($newURL[0]) {
-			$this->controller = $newURL[0];
-			
-			if(isset($newURL[1])) {
-				$this->method = $newURL[1];
-			}
-			else {
-				$this->method = "index";
-			}
+		if($newUri[0]) {
+                    $this->controller = $newUri[0];
+
+                    if(isset($newUri[1])) {
+                        $this->method = $newUri[1];
+                    }
+                    else {
+                        $this->method = 'index';
+                    }
 		}
 		else {
-			$this->controller = "index";
-			$this->method = "index";
+                    $this->controller 	= 'index';
+                    $this->method   = 'index';
 		}
-		
+                
 		$className = 'application\controllers\\'. $this->controller;
 		
 		$newObject = new $className();
 		$newObject->{$this->method}();
-		
-	}
-	
+	}	
 }
